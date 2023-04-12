@@ -3,13 +3,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 {{ with .Params.vanity }}
+  {{ $domain := replaceRE `(?:(?:http)?s?\:\/\/)?(?:www.)?(?P<domain>[a-zA-Z0-9]+\.[a-z]+)` "$domain" $.Site.BaseURL }}
   <meta
     name="go-import"
-    content="{{ $.Site.BaseURL }}{{ substr $.RelPermalink 1 -1 }} git {{ . }}"
+    content="{{ $domain }}{{ substr $.RelPermalink 1 -1 }} git {{ . }}"
   />
   <meta
     name="go-source"
-    content="{{ $.Site.BaseURL }}{{ substr $.RelPermalink 1 -1 }} {{ . }} {{ . }}/tree/master{/dir} {{ . }}/blob/master{/dir}/{file}#L{line}"
+    content="{{ $domain }}{{ substr $.RelPermalink 1 -1 }} {{ . }} {{ . }}/tree/master{/dir} {{ . }}/blob/master{/dir}/{file}#L{line}"
   />
 {{ end }}
 
