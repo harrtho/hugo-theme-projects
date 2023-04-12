@@ -1,0 +1,10 @@
+<aside>
+    {{ range .Site.RegularPages }}
+    <h3>
+        <a href="{{ .Permalink }}">
+            {{ .Title | markdownify }}
+        </a>
+    </h3>
+    {{/* range .Site.RegularPages */}}
+    {{ end }}
+</aside>

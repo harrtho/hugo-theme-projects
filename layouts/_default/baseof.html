@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html>
-    {{- partial "head.html" . -}}
-    <body>
-        {{- partial "header.html" . -}}
-        <div id="content">
-        {{- block "main" . }}{{- end }}
-        </div>
-        {{- partial "footer.html" . -}}
-    </body>
+  {{- partial "head.html" . -}}
+
+
+  <body>
+    {{ partial "header.html" . }}
+    {{ partial "projects.html" . }}
+
+    {{ block "title" . }}
+      <h1 class="bold-title is-1">{{ .Title | markdownify }}</h1>
+    {{ end }}
+    <div>
+      {{ block "main" . }}
+      {{ end }}
+    </div>
+    {{ block "footer" . }}
+      {{ partial "footer.html" . }}
+    {{ end }}
+  </body>
 </html>

@@ -1,0 +1,19 @@
+{{ define "main" }}
+<div>
+    {{ .Content }}
+</div>
+
+<div>
+    {{ range .Pages }}
+    <div>
+        <h3>
+            <a href="{{ .Permalink }}">
+                {{ .Title | markdownify }}
+            </a>
+        </h3>
+    </div>
+    {{ end }}
+
+</div>
+{{/* define "main" */}}
+{{ end }}

@@ -1,0 +1,34 @@
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+{{ with .Params.vanity }}
+  <meta
+    name="go-import"
+    content="{{ $.Site.BaseURL }}{{ substr $.RelPermalink 1 -1 }} git {{ . }}"
+  />
+  <meta
+    name="go-source"
+    content="{{ $.Site.BaseURL }}{{ substr $.RelPermalink 1 -1 }} {{ . }} {{ . }}/tree/master{/dir} {{ . }}/blob/master{/dir}/{file}#L{line}"
+  />
+{{ end }}
+
+{{ $rawStyle := resources.Get "sass/style.sass" }}
+
+{{ if .Site.IsServer }}
+  {{ $sassOpts := (dict "targetPath" "css/style.css" "enableSourceMap" true ) }}
+  {{ $postCSSOpts := (dict "use" "autoprefixer" ) }}
+  {{ $style := $rawStyle | toCSS $sassOpts | postCSS $postCSSOpts | minify }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}" media="screen" />
+{{ else }}
+  {{ $sassOpts := (dict "targetPath" "css/style.css") }}
+  {{ $postCSSOpts := (dict "use" "autoprefixer" ) }}
+  {{ $style := $rawStyle | toCSS $sassOpts | postCSS $postCSSOpts | minify | fingerprint }}
+  <link
+    rel="stylesheet"
+    href="{{ $style.RelPermalink }}"
+    integrity="{{ $style.Data.Integrity }}"
+    crossorigin="anonymous"
+    media="screen"
+  />
+{{ end }}

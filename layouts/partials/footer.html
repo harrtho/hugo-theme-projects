@@ -1,0 +1,16 @@
+{{ if .Site.Params.copyrighthtml }}
+  <footer>
+    {{ with .Site.Params.footerText }}
+      <div>
+        {{ . | markdownify }}
+      </div>
+    {{ else }}
+      <div>
+        {{ .Site.Params.CopyrightHTML | safeHTML }} · Made with
+        {{ printf "[**Projects**](https://github.com/harrtho/hugo-theme-projects/) theme for [Hugo](http://gohugo.io/)" | markdownify }}
+      </div>
+    {{ end }}
+  </footer>
+{{ end }}
+
+{{ partial "scripts.html" . }}

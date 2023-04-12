@@ -1,0 +1,16 @@
+<nav>
+  <ul>
+    {{ if .Site.Menus.page }}
+      {{ range .Site.Menus.page }}
+        <li>
+          <a href="{{ .URL }}">
+            {{ .Pre }}
+            {{ .Name }}
+          </a>
+        </li>
+      {{/* range .Site.Menus.page */}}
+      {{ end }}
+    {{/* if .Site.Menus.page */}}
+    {{ end }}
+  </ul>
+</nav>
